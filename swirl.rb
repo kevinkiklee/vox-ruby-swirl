@@ -1,9 +1,12 @@
+require 'nokogiri'
+require 'byebug'
+
 class Swirl
   def initialize
   end
 
   def add_html(htmlString)
-    @html = htmlString
+    @html = Nokogiri::HTML.fragment(htmlString)
   end
 
   def use_affiliate_database(db)
@@ -12,6 +15,8 @@ class Swirl
 
   def money_making_html
     raise 'HTML string is missing' unless @html
-    return @html unless @db
+    return @html.to_s unless @db
+
+    @html.to_s
   end
 end
