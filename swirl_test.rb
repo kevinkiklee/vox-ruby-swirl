@@ -1,7 +1,7 @@
 # Hey boss, make sure you include your Swirl library
 # Any that nice CashWords library too
-# require File.join(File.dirname(__FILE__),"swirl")
-# require File.join(File.dirname(__FILE__),"cash_words")
+require File.join(File.dirname(__FILE__),"swirl")
+require File.join(File.dirname(__FILE__),"cash_words")
 require "test/unit"
 
 
