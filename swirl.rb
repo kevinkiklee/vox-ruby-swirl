@@ -11,6 +11,8 @@ class Swirl
   end
 
   def money_making_html
+    raise 'HTML string is missing' unless @html
+
     @html
   end
 end
