@@ -46,7 +46,7 @@ class Swirl
 
   def linkify_word(word, links)
     link = find_highest_affiliate_amount(links)
-    "\<a href='#{link}' target='_blank'>#{word}</a>"
+    "\<a href=\"#{link}\" target=\"_blank\">#{word}</a>"
   end
 
   def find_highest_affiliate_amount(links)
