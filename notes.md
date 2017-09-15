@@ -42,4 +42,48 @@
 	- nokogiri auto-corrects.  cannot make it fail.  
 	- if i had more time, i would like to have written an html parser
 
+----------------
 
+* What was the first thing you did after reading the exercises?
+	- determine the objective
+	- start thinking about complex html
+	- decide on how to parse html
+		- cannot just iterate over the string
+		- what if the keyword is a css class name?
+	- in short, explore the edge cases i have to consider
+
+* Why did you chose this approach?
+	- to think about how this code would be used at a production level.
+
+* Tell us more about this architecture?
+	- it uses nokogiri as the html parser
+
+* What specific syntax decisions did you make?
+  - more of a structure, but attempt to use only pure functions if possible
+
+* Were there interesting optimizations you discovered?
+	- this isn't necessarily discovered, but i thought about the time complexity of `money_making_html`. 
+	- it is in o(m + n), with m being the number of html tags, and n being the number of words.  so O(n)
+
+* What was the most difficult part of this exercise?
+	- determining how to parse HTML
+
+* What did you do when you got stuck?
+	- gooooooogle
+	- read nokogiri docs
+
+* Did you learn anything new during this project?
+	- nokogiri!
+
+* What does your teammate need to know about it?
+	- you need the HTML string and the DB object
+	- returns the HTML string with the words linked
+
+* Did you structure it in a way that is understandable to others?
+	- the methods are organized in the order of execution
+
+* Is it sufficiently documented?
+	- Commented the purpose of the class, the necessary arguments, and lines that may need some explanation.
+
+* Given more time, what would you do next to improve the project that you didn't have time for here?
+	-	html parser
