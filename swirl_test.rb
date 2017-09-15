@@ -111,6 +111,14 @@ class TestSwirl < Test::Unit::TestCase
 
     assert_equal output, expected_output
   end
+
+  def test_raise_error_when_without_html
+    swirl = Swirl.new
+    
+    assert_raise RuntimeError do 
+      swirl.money_making_html
+    end
+  end
 end
 
 # Boss, I wrote a mocking library to make sure we are selecting the
