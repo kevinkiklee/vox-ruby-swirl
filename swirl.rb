@@ -1,5 +1,4 @@
 require 'nokogiri'
-require 'byebug'
 
 class Swirl
   def add_html(htmlString)
@@ -20,7 +19,7 @@ class Swirl
       rawWords = node.text.split(' ')
       words = rawWords.map { |word| strip_punctuations(word) }
       linkedWords = check_words(words)
-      
+
       node.content = linkedWords.join(' ')
     end
 
