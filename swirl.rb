@@ -17,8 +17,8 @@ class Swirl
       next unless node.is_a? Nokogiri::XML::Text
 
       rawWords = node.text.split(' ')
-      words = rawWords.map { |word| strip_punctuations(word) }
-      linkedWords = check_words(words)
+      strippedWords = rawWords.map { |word| strip_punctuations(word) }
+      linkedWords = check_words(strippedWords)
 
       node.content = linkedWords.join(' ')
     end
