@@ -19,17 +19,9 @@ class Swirl
 
       rawWords = node.text.split(' ')
       words = rawWords.map { |word| strip_punctuations(word) }
-
-      words.map! do |word|
-        if @db.has_word?(word.downcase)
-          links = @db.get_links_for_word(word.downcase)
-          linkify_word(word, links)
-        else
-          word
-        end
-      end
-
-      node.content = words.join(' ')
+      linkedWords = check_words(words)
+      
+      node.content = linkedWords.join(' ')
     end
 
     output_html_string
@@ -39,6 +31,17 @@ class Swirl
 
   def strip_punctuations(word)
     word.gsub(/[^a-z0-9]/i, '')
+  end
+
+  def check_words(words)
+    words.map do |word|
+      if @db.has_word?(word.downcase)
+        links = @db.get_links_for_word(word.downcase)
+        linkify_word(word, links)
+      else
+        word
+      end
+    end
   end
 
   def linkify_word(word, links)
