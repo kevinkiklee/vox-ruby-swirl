@@ -1,5 +1,8 @@
 require 'nokogiri'
 
+# Parses with HTML string with affiliate links
+# Requires the HTML string and the DB object
+
 class Swirl
   def add_html(htmlString)
     @html = Nokogiri::HTML.fragment(htmlString)
@@ -14,12 +17,14 @@ class Swirl
     return output_html_string unless @db
 
     @html.traverse do |node|
+      # Skip unless the node contains text
       next unless node.is_a? Nokogiri::XML::Text
 
       rawWords = node.text.split(' ')
       strippedWords = rawWords.map { |word| strip_punctuations(word) }
       linkedWords = check_words(strippedWords)
 
+      # Update the node content with the linked text
       node.content = linkedWords.join(' ')
     end
 
