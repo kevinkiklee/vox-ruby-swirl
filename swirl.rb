@@ -2,9 +2,6 @@ require 'nokogiri'
 require 'byebug'
 
 class Swirl
-  def initialize
-  end
-
   def add_html(htmlString)
     @html = Nokogiri::HTML.fragment(htmlString)
   end
