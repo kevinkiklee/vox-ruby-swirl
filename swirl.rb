@@ -15,7 +15,7 @@ class Swirl
 
   def money_making_html
     raise 'HTML string is missing' unless @html
-    return outputHtmlString unless @db
+    return output_html_string unless @db
 
     @html.traverse do |node|
       next unless node.is_a? Nokogiri::XML::Text
@@ -35,7 +35,7 @@ class Swirl
       node.content = words.join(' ')
     end
 
-    outputHtmlString
+    output_html_string
   end
 
   private
@@ -57,7 +57,7 @@ class Swirl
     link_with_highest_amount[:url]
   end
 
-  def outputHtmlString
+  def output_html_string
     replace_escaped_characters(@html.to_html)
   end
 
