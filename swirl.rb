@@ -19,13 +19,14 @@ class Swirl
 
     @html.traverse do |node|
       next unless node.is_a? Nokogiri::XML::Text
+
       rawWords = node.text.split(' ')
-      words = rawWords.map { |word| word.gsub(/[^a-z0-9]/i, '') }
+      words = rawWords.map { |word| strip_punctuations(word) }
 
       words.map! do |word|
         if @db.has_word?(word.downcase)
           links = @db.get_links_for_word(word.downcase)
-          linkify_string(word, links)
+          linkify_word(word, links)
         else
           word
         end
@@ -33,15 +34,19 @@ class Swirl
 
       node.content = words.join(' ')
     end
-    p outputHtmlString
+
     outputHtmlString
   end
 
   private
 
-  def linkify_string(word, links)
+  def strip_punctuations(word)
+    word.gsub(/[^a-z0-9]/i, '')
+  end
+
+  def linkify_word(word, links)
     link = find_highest_affiliate_amount(links)
-    replace_escaped_characters("<a href='#{link}' target='_blank'>#{word}</a>")
+    "\<a href='#{link}' target='_blank'>#{word}</a>"
   end
 
   def find_highest_affiliate_amount(links)
@@ -51,12 +56,12 @@ class Swirl
 
     link_with_highest_amount[:url]
   end
-  
-  def replace_escaped_characters(string)
-    string.gsub('&lt;', '<').gsub('&gt;', '>')
-  end
 
   def outputHtmlString
-    @html.to_s
+    replace_escaped_characters(@html.to_html)
+  end
+
+  def replace_escaped_characters(string)
+    string.gsub('&lt;', '<').gsub('&gt;', '>')
   end
 end
