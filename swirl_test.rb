@@ -3,7 +3,8 @@
 require File.join(File.dirname(__FILE__),"swirl")
 require File.join(File.dirname(__FILE__),"cash_words")
 require "test/unit"
-
+require 'byebug'
+require 'nokogiri'
 
 class TestSwirl < Test::Unit::TestCase
   def test_basic_interface
@@ -88,11 +89,29 @@ class TestSwirl < Test::Unit::TestCase
   # Hey boss, I got stuck here, I'd really like to add a few tests
   # to make sure we aren't mangling any of the HTML, but I wasn't sure
   # how to do that ... also I am falling asleep
+    
   def test_wont_mangle_the_html
-    assert false, "I was too tired to write this, please help me."
+    sample_string = "<div class='paragraph-container'><p class='paragraph--green'>Hello World</p><p>Please click this <b>cheese</b> link</p></div>"
+    expected_output = "<div class=\"paragraph-container\">\n<p class=\"paragraph--green\">Hello World</p>\n<p>Please click this<b><a href=\"https://bigmoney.com/rottenstuff\" target=\"_blank\">cheese</a></b>link</p>\n</div>"
+    swirl = Swirl.new
+    swirl.add_html(sample_string)
+    swirl.use_affiliate_database(FakeCashWords.new)
+    output = swirl.money_making_html
+
+    assert_equal output, expected_output
+  end
+
+  def test_parse_only_texts
+    sample_string = "<div cheese class='cheese'>cheese</div>"
+    expected_output = "<div cheese class=\"cheese\"><a href=\"https://bigmoney.com/rottenstuff\" target=\"_blank\">cheese</a></div>"
+    swirl = Swirl.new
+    swirl.add_html(sample_string)
+    swirl.use_affiliate_database(FakeCashWords.new)
+    output = swirl.money_making_html
+
+    assert_equal output, expected_output
   end
 end
-
 
 # Boss, I wrote a mocking library to make sure we are selecting the
 # highest amount from our affiliates
