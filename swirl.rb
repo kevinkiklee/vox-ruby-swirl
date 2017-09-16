@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-# Parses with HTML string with affiliate links
+# Parses HTML string with affiliate links
 # Requires the HTML string and the DB object
 
 class Swirl
