@@ -20,12 +20,12 @@ class Swirl
       # Skip unless the node contains text
       next unless node.is_a? Nokogiri::XML::Text
 
-      rawWords = node.text.split(' ')
-      strippedWords = rawWords.map { |word| strip_punctuations(word) }
-      linkedWords = check_words(strippedWords)
+      raw_words = node.text.split(' ')
+      stripped_words = raw_words.map { |word| strip_punctuations(word) }
+      linked_words = check_words(stripped_words)
 
       # Update the node content with the linked text
-      node.content = linkedWords.join(' ')
+      node.content = linked_words.join(' ')
     end
 
     output_html_string
